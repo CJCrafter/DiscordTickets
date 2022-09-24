@@ -1,6 +1,8 @@
 import os
 
 import discord
+from discord.ui import Button
+from discord.ui import View
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -25,7 +27,14 @@ class MyClient(discord.Client):
         embedVar.set_thumbnail(url=img)
         embedVar.add_field(name="Field1", value="hi", inline=False)
         embedVar.add_field(name="Field2", value="hi2", inline=False)
-        await message.channel.send(embed=embedVar)
+
+        yay = Button(label="This answered my question", style=discord.ButtonStyle.green)
+        nay = Button(label="This didn't answer my question", style=discord.ButtonStyle.red)
+        view = View()
+        view.add_item(yay)
+        view.add_item(nay)
+
+        await message.channel.send(embed=embedVar, view=view)
         print(f'Message from {message.author}: {message.content}')
 
 
